@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -59,12 +60,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_create:
                 String name = et_name.getText().toString();
-                String sandboxPath = FileUtil.getSandboxPath(this, null) + "/" + name;
+                String sandboxPath = FileUtil.getSandboxPath(this, null) + "/马英九/" + name;
                 File file = new File(sandboxPath);
                 if (!file.exists()) {
                     file.mkdirs();
                     sb.append("新建文件的路径:" + sandboxPath + "\n");
                     tv_show.setText(sb.toString());
+                    et_name.setText("");
+                } else {
+                    Toast.makeText(this,"文件已创建!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_delete:
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     files[i].delete();
                 }
                 tv_show.setText("刚刚创建的文件已删除!");
+                et_name.setText("");
                 break;
             default:
                 break;
